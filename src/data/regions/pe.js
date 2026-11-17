@@ -18,7 +18,7 @@ Whole chicken (pollo a la brasa) | fatty,umami | poultry | pe | roasted,poached,
 Pork belly | fatty,crunchy | pork | pe | fried,braised |
 Cabrito (kid goat) | umami,fatty | goat | pe.coast | stewed,braised | n:herbal
 Cecina (Amazonian smoked pork) | salty,chewy,umami | pork | pe.amazon | smoked,fried | n:smoky
-Tarwi (chocho, Andean lupin) | fatty,soft | legume | pe.andes | stewed,pureed,as-is | n:nutty,earthy
+Tarwi (chocho, Andean lupin) | fatty,soft | legume | pe.andes | stewed,pureed,as-is | a:lupin n:nutty,earthy
 Frejol canario (canary beans) | soft | legume | pe.coast | stewed,pureed | n:earthy
 Pallares (Ica lima beans) | soft | legume | pe.coast | stewed,pureed | n:earthy
 # --- Chiles and aromatics ---

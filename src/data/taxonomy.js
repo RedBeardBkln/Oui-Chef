@@ -73,6 +73,7 @@ export const ALLERGENS = {
   sesame:    'Sesame',
   mustard:   'Mustard',
   sulfite:   'Sulfites',
+  lupin:     'Lupin',
 };
 
 // ---- Cooking methods / preparations ----------------------------------------

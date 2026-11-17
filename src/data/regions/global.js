@@ -5,7 +5,7 @@ export default `
 Flaky sea salt | salty,crunchy | spice | global | as-is | dessert n:briny
 Unsalted butter | fatty,soft | dairy | global | as-is,whipped,confit | dessert n:dairy
 Brown butter | fatty,aromatic | dairy | global | as-is | dessert n:nutty,toasty
-Extra-virgin olive oil | fatty,bitter | fat | global | raw,confit | dessert n:green,fruity
+Extra-virgin olive oil | fatty,bitter | fat | global | as-is | dessert n:green,fruity
 Eggs (soft-boiled) | soft,fatty | egg | global | poached,steamed | n:dairy
 Egg yolk (cured) | salty,umami,chewy | egg | global | cured |
 Garlic | aromatic,umami | veg | global | roasted,confit,fried,sauteed,raw | n:allium

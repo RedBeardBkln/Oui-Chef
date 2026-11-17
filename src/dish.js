@@ -30,7 +30,7 @@ function groupOf(item) {
 const lower = s => s.charAt(0).toLowerCase() + s.slice(1);
 const describe = it => {
   const m = it.methodLabel && it.methodLabel !== 'Raw' && !isUsage(it.methodLabel) ? it.methodLabel.toLowerCase() : '';
-  const n = it.name;
+  const n = it.name.replace(/\s*\(.*?\)\s*/g, ' ').trim();
   return m && !n.toLowerCase().includes(m.slice(0, 5)) ? `${m} ${n}` : n;
 };
 const isUsage = l => /^(in |for |as |baked in)/.test(l);
@@ -67,7 +67,8 @@ export function buildDish(list, settings = {}, { seed } = {}) {
   const groups = GROUPS.map(g => ({ ...g, items: items.filter(i => groupOf(i) === g.id) })).filter(g => g.items.length);
 
   const star = items.find(i => i.slot === 'protein') || items.find(i => i.slot === 'feature')
-    || items.find(i => i.slot === 'base') || items[0];
+    || items.find(i => i.slot === 'base')
+    || [...items].filter(i => !i.wildcard).sort((a, b) => (b.roles?.length || 0) - (a.roles?.length || 0))[0] || items[0];
   const supporting = items.filter(i => i !== star && i.slot !== 'base');
   const ranked = [...supporting].sort((a, b) => (b.wildcard - a.wildcard) || ((b.roles?.length || 0) - (a.roles?.length || 0)) || (rng() - 0.5));
   const highlights = ranked.slice(0, 4);

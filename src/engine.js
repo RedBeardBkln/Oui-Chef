@@ -41,6 +41,10 @@ const SEA_ALLERGENS = ['fish', 'shellfish', 'mollusk'];
 export const proteinGroup = ing => CATEGORIES[ing.category]?.protein || null;
 export const isMainProtein = ing => !!proteinGroup(ing) && !ing.flags.includes('acc');
 const has = (ing, flag) => ing.flags.includes(flag);
+// Broths, noodles, breads, wraps and wrappers define a dish's format, so they
+// only enter a list through a base slot, never as a random sensory filler.
+const STRUCTURAL = ['broth', 'noodle', 'bread', 'wrap', 'wrapper', 'flatbread'];
+const isStructural = ing => ing.formats.some(f => STRUCTURAL.includes(f));
 const containsMeat = ing => MEAT_CATS.has(ing.category) || has(ing, 'meat') || has(ing, 'pork');
 const containsDairy = ing => ing.allergens.includes('dairy');
 const containsFish = ing => ing.category === 'fish' || ing.allergens.includes('fish');
@@ -123,10 +127,10 @@ export function resolveSettings(raw) {
 }
 
 function regionMatch(ing, anchor) {
-  // 0 = off-region, 1 = other sub of same region, 1.5 = global, 3 = region, 5 = sub-region
+  // 0 = off-region, 0.5 = global pantry, 1 = other sub of same region, 3 = region, 5 = sub-region
   let best = 0;
   for (const r of ing.regions) {
-    if (r === 'global') { best = Math.max(best, 1.5); continue; }
+    if (r === 'global') { best = Math.max(best, 0.5); continue; }
     const [rid, sub] = r.split('.');
     if (rid !== anchor.region) continue;
     if (!sub) best = Math.max(best, 3);
@@ -231,12 +235,14 @@ export function generateList(ingredients, pool, rs, opts = {}) {
   };
   const weight = (ing, { wildcard = false } = {}) => {
     const rm = regionMatch(ing, anchor);
+    if (wildcard && isMainProtein(ing)) return 0; // wildcards accent a dish; they don't replace its protein
     let w = wildcard ? (rm === 0 ? 1 : 0) : rm;
     if (!w) return 0;
     w *= affinity(ing);
     w /= 1 + 1.5 * (usage.get(ing.id) || 0);
     const catN = usedCats.get(ing.category) || 0;
     if (catN && !['veg', 'herb', 'fruit'].includes(ing.category)) w *= 0.4 ** catN;
+    if (isMainProtein(ing) && picked.some(p => p.ing && isMainProtein(p.ing))) w *= 0.15;
     return w;
   };
   const pick = (cands, extra, wildcard = false) => {
@@ -295,7 +301,7 @@ export function generateList(ingredients, pool, rs, opts = {}) {
   for (const role of [...needed, ...rs.optional]) {
     if (covered.has(role)) continue;
     const roleOk = i => i.roles.includes(role) && (role !== 'spicy' || i.heat >= rs.spice.min);
-    const c = pool.filter(i => roleOk(i) && allowed(i));
+    const c = pool.filter(i => roleOk(i) && allowed(i) && !isStructural(i));
     const uncovered = [...rs.required, ...rs.optional].filter(r => !covered.has(r) && r !== role);
     const bonus = i => 1 + 0.5 * i.roles.filter(r => uncovered.includes(r)).length;
     const isWild = wildRoles.has(role);
@@ -319,7 +325,7 @@ export function generateList(ingredients, pool, rs, opts = {}) {
     const thin = shuffle(rs.required.filter(r => r !== 'spicy'), rng).sort((a, b) => counts[a] - counts[b]);
     let added = false;
     for (const role of thin.slice(0, 4)) {
-      const c = pool.filter(i => i.roles.includes(role) && allowed(i) && !isMainProtein(i));
+      const c = pool.filter(i => i.roles.includes(role) && allowed(i) && !isMainProtein(i) && !isStructural(i));
       const ing = weightedPick(c, i => weight(i), rng);
       if (ing) { add(ing, { slot: 'role', role, wildcard: false }); added = true; break; }
     }
@@ -401,7 +407,7 @@ export function swapItem(ingredients, settings, list, index, { seed } = {}) {
     && !(kosher && kosherClash(i, others)));
   if (target.slot === 'protein') cands = cands.filter(i => isMainProtein(i) && (!rs.proteins.length || rs.proteins.includes(proteinGroup(i))));
   else if (target.slot === 'base') cands = cands.filter(i => i.formats.some(f => target.ing?.formats.includes(f)));
-  else cands = cands.filter(i => !isMainProtein(i) || i.category === target.category);
+  else cands = cands.filter(i => (!isMainProtein(i) || i.category === target.category) && !isStructural(i));
   const onRegion = cands.filter(i => regionMatch(i, anchor) > 0);
   const choice = weightedPick(onRegion.length && !target.wildcard ? onRegion : cands, i => 1 + regionMatch(i, anchor), rng);
   if (!choice) return null;

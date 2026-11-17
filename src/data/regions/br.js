@@ -51,7 +51,6 @@ Pimenta-de-cheiro | aromatic,spicy | chile | br.amazon,br.bahia | raw,stewed | h
 Pimenta biquinho | sweet,spicy,acidic | chile | br.minas | pickled,raw | h:1 n:fruity
 Jambu | aromatic,spicy | herb | br.amazon | raw,poached | h:1 n:green,citrus
 Erva-mate | bitter,aromatic | herb | br.south | as-is | n:herbal,green
-Cumaru (Amazonian tonka bean) | aromatic,sweet | spice | br.amazon | shaved | dessert n:warm-spice,caramel
 # --- Produce ---
 Couve (collard greens) | bitter,crunchy | veg | br.minas | sauteed,raw | n:green
 Ora-pro-nóbis | soft | veg | br.minas | sauteed,stewed | n:green
@@ -64,7 +63,7 @@ Jabuticaba | sweet,acidic | fruit | br.minas | raw,pureed | dessert n:fruity
 Goiabada (guava paste) | sweet,chewy | fruit | br.minas | as-is | dessert n:fruity
 Rapadura | sweet | sweetener | br | as-is | dessert n:caramel
 Coco ralado (grated coconut) | sweet,chewy | fruit | br.bahia | toasted,as-is | dessert n:nutty
-Caju (cashew apple) | acidic,sweet | fruit | br | raw,pureed | dessert n:fruity
+Caju (cashew apple) | acidic,sweet | fruit | br | raw,pureed | a:treenut dessert n:fruity
 Açaí | bitter,fatty | fruit | br.amazon | pureed | dessert n:earthy,fruity
 Cupuaçu | acidic,sweet | fruit | br.amazon | pureed | dessert n:fruity,floral
 Castanha-do-pará (Brazil nut) | fatty,crunchy | nut | br.amazon | toasted,raw | dessert a:treenut n:nutty
