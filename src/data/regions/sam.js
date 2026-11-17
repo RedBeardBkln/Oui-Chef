@@ -26,12 +26,13 @@ Dulce de leche | sweet,soft | dairy | sam.argentina | as-is | dessert n:caramel,
 # --- Condiments, chiles, herbs ---
 Chimichurri | acidic,aromatic,fatty | condiment | sam.argentina | raw,as-is | a:sulfite n:herbal,allium
 Ají molido (crushed red chile) | spicy | chile | sam.argentina | as-is | h:2 n:fruity
-Merkén | spicy,smoky,salty | chile | sam.chile | as-is | h:2 n:smoky
+Merkén | spicy,salty,aromatic | chile | sam.chile | as-is | h:2 n:smoky
 Pebre | acidic,spicy,aromatic | condiment | sam.chile | raw | h:2 n:herbal,allium
 Ají colombiano (fresh chile salsa) | spicy,acidic | condiment | sam.colombia | raw | h:2 n:herbal,allium
 Hogao | sweet,acidic,umami | condiment | sam.colombia | sauteed | n:allium
 Guascas | aromatic | herb | sam.colombia | stewed | n:herbal,earthy
 Yerba mate | bitter,aromatic | herb | sam.argentina | as-is | n:herbal,green
+Fernet | bitter,aromatic | condiment | sam.argentina | as-is | alcohol n:herbal,anise
 Aceitunas de Azapa (Azapa olives) | salty,bitter,fatty | pickle | sam.chile | as-is | n:briny,fruity
 Cochayuyo (bull kelp) | chewy,umami | seaweed | sam.chile | stewed | n:briny
 Malbec (red wine) | acidic,aromatic | condiment | sam.argentina | braised,glazed | alcohol a:sulfite n:fruity
