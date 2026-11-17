@@ -2,7 +2,6 @@
 export default `
 # --- Main proteins ---
 Aberdeen Angus beef | umami,fatty | beef | uk.scotland | roasted,grilled,seared,braised | n:toasty
-Hereford beef | umami,fatty | beef | uk.england | roasted,braised | n:toasty
 Mutton | fatty,umami,chewy | lamb | uk.ireland,uk.scotland | stewed,braised,roasted | n:earthy
 Gloucester Old Spot pork | fatty,umami | pork | uk.england | roasted,braised | n:toasty
 Gammon | salty,umami,fatty | pork | uk.england,uk.ireland | poached,glazed,roasted | n:smoky
@@ -11,7 +10,6 @@ Haggis | umami,fatty,chewy | lamb | uk.scotland | baked,fried | a:gluten n:warm-
 Aylesbury duck | fatty,umami | poultry | uk.england | roasted | n:toasty
 Red deer venison | umami,chewy | game | uk.scotland | roasted,seared,braised | n:earthy
 Grouse | umami,bitter | game | uk.scotland | roasted | nonkosher n:earthy,herbal
-Pheasant | umami,chewy | game | uk.england | roasted,braised | n:earthy
 Scottish salmon | fatty,umami,soft | fish | uk.scotland,uk.ireland | poached,smoked,cured,roasted | n:briny
 Dover sole | umami,soft | fish | fr.normandy,uk.england | seared,poached,roasted | n:briny,dairy
 Finnan haddie (smoked haddock) | salty,umami,soft | fish | uk.scotland | poached,smoked | n:smoky
@@ -26,7 +24,6 @@ Back bacon (rashers) | salty,fatty,umami | pork | uk.ireland,uk.england | fried,
 Brown shrimp (Morecambe Bay) | sweet,salty | shellfish | uk.england | poached,as-is | acc n:briny,warm-spice
 Gentleman's Relish | salty,umami,fatty | condiment | uk.england | as-is | a:fish,dairy n:briny,warm-spice
 Bone marrow | fatty,soft,umami | fat | uk.england | roasted | meat n:toasty
-Beef dripping | fatty | fat | uk | roasted,fried | meat n:toasty
 Suet | fatty | fat | uk | baked,steamed | meat a:gluten
 Beef stock | umami,fatty | condiment | uk | as-is | meat f:broth n:toasty
 # --- Cheese & dairy ---
@@ -42,7 +39,6 @@ Buttermilk | acidic,soft | dairy | uk.ireland | as-is,baked | n:dairy
 Bramley apples | acidic,soft | fruit | uk.england | baked,pureed,poached | dessert n:fruity
 Forced rhubarb | acidic,sweet | veg | uk.england | poached,roasted,pickled | dessert n:fruity
 Gooseberries | acidic,sweet | fruit | uk.england | poached,pureed | dessert n:fruity,green
-Damsons | acidic,sweet | fruit | uk.england | poached,baked | dessert n:fruity
 Swede (neeps) | sweet,soft | veg | uk.scotland | pureed,roasted | n:earthy
 Parsnips | sweet,soft | veg | uk | roasted,pureed | n:earthy,nutty
 Leeks | sweet,soft,aromatic | veg | fr,uk | braised,charred,poached | n:allium
@@ -77,7 +73,6 @@ Irish stout | bitter,umami | condiment | uk.ireland | braised,stewed | alcohol a
 Dry cider | acidic,sweet | condiment | uk.england | braised,poached | alcohol a:sulfite n:fruity
 # --- Legumes, grains & bases ---
 Marrowfat peas | soft,sweet | legume | uk.england | pureed,stewed | n:green
-Carlin peas | soft,umami | legume | uk.england | stewed | n:earthy,nutty
 Broad beans | sweet,soft | legume | uk | poached,pureed,raw | n:green
 Pinhead oatmeal | soft,chewy | grain | uk.scotland,uk.ireland | poached,toasted | a:gluten f:grain n:nutty
 Pearl barley | chewy | grain | uk.scotland | stewed,braised | a:gluten f:grain n:nutty
