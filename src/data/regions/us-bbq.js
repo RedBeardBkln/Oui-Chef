@@ -11,7 +11,7 @@ Pork spare ribs | fatty,umami,chewy | pork | us-bbq,us-bbq.memphis,us-bbq.kansas
 Baby back ribs | fatty,umami,chewy | pork | us-bbq.memphis | smoked,grilled | n:smoky
 Pork butt (Boston butt) | fatty,umami,soft | pork | us-bbq,us-bbq.carolina,us-bbq.memphis,us-bbq.alabama | smoked,braised | n:smoky
 Whole hog | fatty,umami,soft | pork | us-bbq.carolina | smoked | n:smoky
-Smoked bologna | salty,fatty,umami | pork | us-bbq.memphis | smoked,grilled | meat n:smoky
+Smoked bologna | salty,fatty,umami | pork | us-bbq.memphis | smoked,grilled | n:smoky
 Pork skin (cracklins) | crunchy,fatty,salty | pork | us-bbq.carolina | fried,smoked | acc n:toasty,smoky
 # --- Poultry & other ---
 Chicken halves | fatty,umami | poultry | us-bbq.alabama | smoked,grilled | n:smoky

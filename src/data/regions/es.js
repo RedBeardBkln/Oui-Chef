@@ -77,5 +77,5 @@ Mongetes del ganxet | soft | legume | es.catalonia | stewed,sauteed | n:earthy
 Bomba rice | soft,crunchy | grain | es | braised | f:grain
 Fideus | crunchy,chewy | noodle | es.catalonia | toasted,braised | a:gluten f:noodle n:toasty
 Pa de pagès | crunchy,chewy | bread | es.catalonia | toasted,grilled | a:gluten f:bread n:toasty
-Empanada dough | crunchy,soft | bread | es.galicia | baked | a:gluten f:wrapper n:toasty
+Empanada dough | crunchy,soft | bread | es.galicia | baked | a:gluten,egg f:wrapper n:toasty
 `;
