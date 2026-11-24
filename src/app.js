@@ -2,7 +2,8 @@ import { INGREDIENTS } from './data/index.js';
 import { REGIONS, REGION_BY_ID } from './data/regions.js';
 import { ROLES, ALLERGENS, SPICE_LEVELS } from './data/taxonomy.js';
 import { DIETS, PROTEINS, FORMATS, PLACEMENTS, CREATIVITY, DEFAULT_SETTINGS } from './config.js';
-import { generate, rerollList, swapItem, serializeList, hydrateList } from './engine.js';
+import { generate, rerollList, swapItem, serializeList, hydrateList, findIngredient, dietConflict, resolveSettings } from './engine.js';
+import { conflicts, sanitize } from './constraints.js';
 import { buildDish } from './dish.js';
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -14,7 +15,7 @@ const store = {
   set(k, v) { try { localStorage.setItem('ouichef:' + k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
 };
 
-let settings = { ...DEFAULT_SETTINGS, ...store.get('settings', {}) };
+let settings = sanitize({ ...DEFAULT_SETTINGS, ...store.get('settings', {}) });
 let lists = [];
 let lastSettings = null;
 let saved = store.get('saved', []);
@@ -28,37 +29,84 @@ const ICON = {
 // ------------------------------------------------------------- the brief
 function option(value, label, sel) { return `<option value="${esc(value)}"${sel ? ' selected' : ''}>${esc(label)}</option>`; }
 
+// "Not available with Beef: Vegan, Vegetarian" — grouped by the selection that blocks them.
+function conflictHint(groups, cf, labelFor) {
+  const byBlocker = new Map();
+  for (const g of groups) for (const [id, by] of Object.entries(cf[g] || {})) {
+    const key = by.join(' + ');
+    if (!byBlocker.has(key)) byBlocker.set(key, []);
+    byBlocker.get(key).push(labelFor(g, id));
+  }
+  return [...byBlocker].map(([by, items]) => `Not available with ${by}: ${items.join(', ')}.`).join(' ');
+}
+
+const LABEL = (g, id) => ({
+  diets: DIETS, proteins: PROTEINS, placement: PLACEMENTS, format: FORMATS, spice: SPICE_LEVELS,
+}[g]?.find(o => o.id === id)?.label || ALLERGENS[id] || id);
+
+// Why a must-include ingredient can't be used with the current brief (or null).
+function includeProblem(name, rs) {
+  if (settings.exclude.some(x => x.toLowerCase() === name.toLowerCase())) return 'also in Exclude';
+  const ing = findIngredient(INGREDIENTS, name);
+  if (!ing) return null; // custom ingredient: nothing known about it
+  const diet = dietConflict(ing, rs);
+  if (diet) return diet;
+  if (ing.heat > rs.spice.max) return `too hot for ${rs.spice.label.toLowerCase()} spice`;
+  if (rs.dessert && !ing.flags.includes('dessert')) return 'not a dessert ingredient';
+  return null;
+}
+
 function renderBrief() {
+  const cf = conflicts(settings);
+  const why = (g, id) => cf[g]?.[id] ? `Not available with ${cf[g][id].join(' + ')}` : '';
+
   $('#region').innerHTML = option('', 'Any region (ten different cuisines)', !settings.region)
     + REGIONS.map(r => option(r.id, r.name, r.id === settings.region)).join('');
   renderSub();
-  $('#format').innerHTML = option('', 'None', !settings.format) + FORMATS.map(f => option(f.id, f.label, f.id === settings.format)).join('');
+  $('#format').innerHTML = option('', 'None', !settings.format) + FORMATS.map(f => {
+    const w = why('format', f.id);
+    return `<option value="${f.id}"${f.id === settings.format ? ' selected' : ''}${w ? ' disabled' : ''}>${esc(f.label)}${w ? ' — n/a' : ''}</option>`;
+  }).join('');
+  $('#format-hint').textContent = conflictHint(['format'], cf, LABEL);
 
   const chipSet = (name, opts, multi = true) => {
     const el = $(`.chips[data-name="${name}"]`);
     const cur = settings[name];
     el.innerHTML = opts.map(o => {
       const on = multi ? cur.includes(o.id) : cur === o.id;
-      return `<button type="button" class="chip" data-value="${o.id}" aria-pressed="${on}"${o.hint ? ` title="${esc(o.hint)}"` : ''}>${esc(o.label)}</button>`;
+      const w = why(name, o.id);
+      const title = w || o.hint || '';
+      return `<button type="button" class="chip" data-value="${o.id}" aria-pressed="${on}"${w ? ' disabled' : ''}${title ? ` title="${esc(title)}"` : ''}>${esc(o.label)}</button>`;
     }).join('');
   };
   chipSet('placement', PLACEMENTS, false);
   chipSet('proteins', PROTEINS);
   chipSet('diets', DIETS);
   chipSet('allergens', Object.entries(ALLERGENS).map(([id, label]) => ({ id, label })));
+  $('#placement-hint').textContent = conflictHint(['placement'], cf, LABEL);
+  $('#proteins-hint').textContent = conflictHint(['proteins'], cf, LABEL);
+  $('#diets-hint').textContent = conflictHint(['diets', 'allergens'], cf, LABEL);
 
   const seg = (name, opts) => {
-    $(`.segmented[data-name="${name}"]`).innerHTML = opts.map(o =>
-      `<button type="button" data-value="${o.id}" aria-pressed="${settings[name] === o.id}">${esc(o.label)}</button>`).join('');
+    $(`.segmented[data-name="${name}"]`).innerHTML = opts.map(o => {
+      const w = why(name, o.id);
+      return `<button type="button" data-value="${o.id}" aria-pressed="${settings[name] === o.id}"${w ? ` disabled title="${esc(w)}"` : ''}>${esc(o.label)}</button>`;
+    }).join('');
   };
   seg('spice', SPICE_LEVELS);
   seg('creativity', CREATIVITY);
+  $('#spice-hint').textContent = conflictHint(['spice'], cf, LABEL);
   $('#creativity-hint').textContent = CREATIVITY.find(c => c.id === settings.creativity)?.hint || '';
 
+  const rs = resolveSettings(settings);
   for (const name of ['include', 'exclude']) {
-    $(`.tag-field[data-name="${name}"] .tags`).innerHTML = settings[name].map((t, i) =>
-      `<span class="tag">${esc(t)}<button type="button" data-remove="${i}" aria-label="Remove ${esc(t)}">×</button></span>`).join('');
+    $(`.tag-field[data-name="${name}"] .tags`).innerHTML = settings[name].map((t, i) => {
+      const problem = name === 'include' ? includeProblem(t, rs) : null;
+      return `<span class="tag${problem ? ' conflict' : ''}"${problem ? ` title="Won't be used: ${esc(problem)}"` : ''}>${problem ? '⚠ ' : ''}${esc(t)}<button type="button" data-remove="${i}" aria-label="Remove ${esc(t)}">×</button></span>`;
+    }).join('');
   }
+  const bad = settings.include.map(t => [t, includeProblem(t, rs)]).filter(([, p]) => p);
+  $('#include-hint').textContent = bad.map(([t, p]) => `“${t}” won't be used: ${p}.`).join(' ');
 }
 
 function renderSub() {
@@ -76,7 +124,7 @@ function bindBrief() {
   const form = $('#brief');
   $('#region').addEventListener('change', e => { settings.region = e.target.value; settings.sub = ''; renderSub(); saveSettings(); });
   $('#sub').addEventListener('change', e => { settings.sub = e.target.value; saveSettings(); });
-  $('#format').addEventListener('change', e => { settings.format = e.target.value; saveSettings(); });
+  $('#format').addEventListener('change', e => { settings.format = e.target.value; saveSettings(); renderBrief(); });
 
   form.addEventListener('click', e => {
     const chip = e.target.closest('.chips .chip');
@@ -125,6 +173,7 @@ function bindBrief() {
     settings = { ...settings, region: r.id, sub: r.subs.length && Math.random() < .6 ? pick(r.subs).id : '',
       format: Math.random() < .4 ? pick(FORMATS).id : '', placement: pick(PLACEMENTS).id,
       spice: pick(SPICE_LEVELS).id, creativity: pick(CREATIVITY).id, proteins: [] };
+    settings = sanitize(settings); // keeps the chef's diet/allergens; drops any random pick that contradicts them
     saveSettings(); renderBrief(); runGenerate();
   });
 }

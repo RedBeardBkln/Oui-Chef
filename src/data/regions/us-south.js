@@ -51,7 +51,7 @@ Morels | umami,aromatic | fungi | us-south.appalachia | sauteed,fried | n:earthy
 Sweet potatoes | sweet,soft | starch | us-south | roasted,baked,pureed | dessert n:caramel,earthy
 # --- Spices, heat & condiments ---
 Filé powder | aromatic | spice | us-south.louisiana | as-is | n:earthy,herbal
-Cayenne pepper | spicy | chile | us-south,us-south.louisiana | as-is | h:3 n:fruity
+Cayenne pepper | spicy | chile | us-south,us-south.louisiana | as-is | dessert h:3 n:fruity
 Louisiana-style hot sauce | acidic,spicy,salty | condiment | us-south.louisiana | as-is | h:2 n:fruity
 Pepper vinegar | acidic,spicy | condiment | us-south.deep-south | as-is | h:2 n:green
 Creole mustard | acidic,aromatic | condiment | us-south.louisiana | as-is | a:mustard n:warm-spice

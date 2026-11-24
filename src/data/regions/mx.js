@@ -48,7 +48,7 @@ Mexican oregano | aromatic,bitter | herb | mx,mx.yucatan | toasted,as-is | n:her
 Mexican cinnamon (canela) | aromatic,sweet | spice | mx | toasted,as-is | dessert n:warm-spice
 # --- Chiles & heat ---
 Poblano | spicy,bitter | chile | mx,mx.central | charred,roasted | h:1 n:green,smoky
-Ancho chile | sweet,spicy | chile | mx | toasted | h:1 n:fruity,smoky
+Ancho chile | sweet,spicy | chile | mx | toasted | dessert h:1 n:fruity,smoky
 Pasilla chile | bitter,spicy | chile | mx,mx.central | toasted,fried | h:1 n:fruity,earthy
 Guajillo chile | spicy,acidic | chile | mx | toasted | h:2 n:fruity
 Chipotle (smoked jalapeño) | spicy,aromatic | chile | mx,mx.veracruz | toasted,braised | h:2 n:smoky
@@ -59,8 +59,8 @@ Habanero | spicy,aromatic | chile | mx.yucatan | raw,charred,pickled | h:4 n:fru
 Chiltepín | spicy | chile | mx.norteno | crumbled,as-is | h:4 n:smoky
 Salsa macha | spicy,fatty,crunchy | condiment | mx.veracruz | as-is | a:peanut,sesame h:3 n:toasty,nutty
 Pickled jalapeños | acidic,spicy | pickle | mx | pickled | h:2 n:green
-Chile-lime salt | salty,acidic,spicy | spice | mx | as-is | h:1 n:citrus
-Chamoy | salty,acidic,spicy | condiment | mx | as-is | h:1 n:fruity
+Chile-lime salt | salty,acidic,spicy | spice | mx | as-is | dessert h:1 n:citrus
+Chamoy | salty,acidic,spicy | condiment | mx | as-is | dessert h:1 n:fruity
 # --- Pastes, ferments, condiments ---
 Achiote paste (recado rojo) | aromatic,bitter | condiment | mx.yucatan | as-is | n:earthy,citrus
 Mole negro paste | bitter,sweet,umami | condiment | mx.oaxaca | as-is,braised | a:treenut,peanut,sesame,gluten pork n:smoky,warm-spice

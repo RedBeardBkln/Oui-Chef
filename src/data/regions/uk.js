@@ -53,7 +53,7 @@ Wild garlic | aromatic | herb | uk | raw,pureed | n:allium,green
 Elderflower | aromatic,sweet | herb | uk.england | as-is,fried | dessert n:floral
 Mace | aromatic | spice | uk.england | as-is | dessert n:warm-spice
 Curry powder | spicy,aromatic | spice | uk | toasted,as-is | h:2 n:warm-spice
-Cayenne pepper | spicy | chile | fr,uk | as-is | h:3 n:warm-spice
+Cayenne pepper | spicy | chile | fr,uk | as-is | dessert h:3 n:warm-spice
 # --- Condiments & pickles ---
 English mustard | spicy,aromatic | condiment | uk.england | as-is | a:mustard,gluten h:2 n:green
 Worcestershire sauce | umami,acidic,salty | condiment | uk.england | as-is | a:fish,gluten n:warm-spice,funky

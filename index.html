@@ -47,21 +47,25 @@
           <select name="sub" id="sub"></select></label>
         <label class="field"><span>Style (non-regional)</span>
           <select name="format" id="format"></select></label>
+        <p class="conflict-hint" id="format-hint"></p>
       </section>
 
       <section class="field-group">
         <h3>Menu placement</h3>
         <div class="chips" data-name="placement" data-single></div>
+        <p class="conflict-hint" id="placement-hint"></p>
       </section>
 
       <section class="field-group">
         <h3>Protein <small>choose any</small></h3>
         <div class="chips" data-name="proteins"></div>
+        <p class="conflict-hint" id="proteins-hint"></p>
       </section>
 
       <section class="field-group">
         <h3>Spice level</h3>
         <div class="segmented" data-name="spice"></div>
+        <p class="conflict-hint" id="spice-hint"></p>
       </section>
 
       <section class="field-group">
@@ -69,6 +73,7 @@
         <div class="chips" data-name="diets"></div>
         <h4>Allergen-free</h4>
         <div class="chips" data-name="allergens"></div>
+        <p class="conflict-hint" id="diets-hint"></p>
       </section>
 
       <section class="field-group">
@@ -83,6 +88,7 @@
           <div class="tags"></div>
           <input type="text" list="ingredient-list" placeholder="e.g. cilantro, then Enter" aria-label="Ingredient to exclude">
         </div>
+        <p class="conflict-hint" id="include-hint"></p>
         <datalist id="ingredient-list"></datalist>
       </section>
 

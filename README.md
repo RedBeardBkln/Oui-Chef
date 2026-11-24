@@ -19,6 +19,8 @@ It runs on phones, tablets and desktops as an installable, offline-capable web a
 | Ingredients | Must-include (from the database or any free text) and exclude (matches by name) |
 | Creativity | Classic (in-cuisine), Inspired (1 cross-cultural wildcard), Adventurous (3 wildcards) |
 
+**No contradictory briefs.** Options that contradict the current selection are greyed out, with a note saying why. Selecting Beef disables Vegan, Vegetarian, Pescatarian and No red meat; Halal disables Pork; Dessert disables proteins, the Seafood style and Extra-hot spice; and so on in both directions. A few rules come from what the database can support: Dessert can't be combined with the Pizza, Salad, Soup or Noodle styles, and Gluten-free can't be combined with Sandwiches or Dumplings, because there is no matching dessert or gluten-free base yet. A must-include ingredient that the brief rules out (e.g. jamón with Halal) is flagged. The rules live in `src/constraints.js`.
+
 ## What the system adds
 
 - **Sensory panel coverage:** every list covers sweet, acidic, salty, bitter, umami, fatty, aromatic, soft/creamy and crunchy, plus spicy when a spice level is set. Chewy is covered when possible. Each card shows which elements are covered, and says so plainly if a restriction makes one impossible.
