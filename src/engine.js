@@ -110,7 +110,8 @@ export function resolveSettings(raw) {
   let proteinMode = placement?.protein || 'required';
   if (dessert) proteinMode = 'none';
   if (proteins.includes('none')) proteinMode = proteins.length === 1 ? 'none' : 'optional';
-  if ((s.proteins || []).filter(p => p !== 'none').length && proteinMode === 'optional' && !proteins.includes('none')) proteinMode = 'required';
+  // A protein the chef picked is always used (e.g. a Side with Pork), except in desserts.
+  if ((s.proteins || []).filter(p => p !== 'none').length && proteinMode !== 'required' && !dessert && !proteins.includes('none')) proteinMode = 'required';
 
   const bases = [...new Set([...(format?.base || []), ...(placement?.base || [])])];
   const methodBias = [...new Set([...(format?.methodBias || []), ...(placement?.methodBias || [])])];

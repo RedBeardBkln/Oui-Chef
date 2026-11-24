@@ -49,8 +49,8 @@ Tarragon | aromatic | herb | fr | raw | n:anise
 Herbes de Provence | aromatic | herb | fr.provence | as-is,roasted | n:herbal,floral
 Saffron | aromatic,bitter | spice | fr.provence,es | as-is | n:floral,earthy
 Juniper berries | aromatic,bitter | spice | fr.alsace | toasted,as-is | n:herbal,warm-spice
-Piment d'Espelette | spicy,aromatic | chile | fr.southwest | as-is,toasted | h:2 n:fruity,smoky
-Cayenne pepper | spicy | chile | fr,uk | as-is | h:3 n:warm-spice
+Piment d'Espelette | spicy,aromatic | chile | fr.southwest | as-is,toasted | dessert h:2 n:fruity,smoky
+Cayenne pepper | spicy | chile | fr,uk | as-is | dessert h:3 n:warm-spice
 # --- Pantry & condiments ---
 Niçoise olives | salty,bitter,fatty | pickle | fr.provence | as-is | n:fruity,briny
 Capers | salty,acidic | pickle | fr.provence,it.sicily,gr | as-is,fried | n:briny,floral
