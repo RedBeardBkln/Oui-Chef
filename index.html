@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Oui Chef — Flavor Randomizer</title>
+  <meta name="description" content="Creative ingredient and sensory combinations for chefs.">
+  <meta name="theme-color" content="#1f3a2e">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="icons/icon.svg" alt="" width="32" height="32">
+      <div>
+        <h1>Oui Chef</h1>
+        <p class="tagline">Flavor &amp; sensory randomizer</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" class="tab" data-view="create" aria-selected="true">Create</button>
+      <button role="tab" class="tab" data-view="saved" aria-selected="false">Saved <span class="count" id="saved-count"></span></button>
+    </nav>
+  </header>
+
+  <main id="view-create" class="layout">
+    <form id="brief" class="brief" autocomplete="off" novalidate>
+      <div class="brief-head">
+        <h2>The brief</h2>
+        <div class="brief-tools">
+          <button type="button" class="link" id="surprise">🎲 Surprise me</button>
+          <button type="button" class="link" id="reset">Reset</button>
+        </div>
+      </div>
+
+      <section class="field-group">
+        <h3>Cuisine</h3>
+        <label class="field"><span>World region</span>
+          <select name="region" id="region"></select></label>
+        <label class="field" id="sub-wrap" hidden><span>Sub-region</span>
+          <select name="sub" id="sub"></select></label>
+        <label class="field"><span>Style (non-regional)</span>
+          <select name="format" id="format"></select></label>
+      </section>
+
+      <section class="field-group">
+        <h3>Menu placement</h3>
+        <div class="chips" data-name="placement" data-single></div>
+      </section>
+
+      <section class="field-group">
+        <h3>Protein <small>choose any</small></h3>
+        <div class="chips" data-name="proteins"></div>
+      </section>
+
+      <section class="field-group">
+        <h3>Spice level</h3>
+        <div class="segmented" data-name="spice"></div>
+      </section>
+
+      <section class="field-group">
+        <h3>Dietary</h3>
+        <div class="chips" data-name="diets"></div>
+        <h4>Allergen-free</h4>
+        <div class="chips" data-name="allergens"></div>
+      </section>
+
+      <section class="field-group">
+        <h3>Ingredients</h3>
+        <div class="tag-field" data-name="include">
+          <span class="label">Must include</span>
+          <div class="tags"></div>
+          <input type="text" list="ingredient-list" placeholder="e.g. jícama, then Enter" aria-label="Ingredient to include">
+        </div>
+        <div class="tag-field" data-name="exclude">
+          <span class="label">Exclude</span>
+          <div class="tags"></div>
+          <input type="text" list="ingredient-list" placeholder="e.g. cilantro, then Enter" aria-label="Ingredient to exclude">
+        </div>
+        <datalist id="ingredient-list"></datalist>
+      </section>
+
+      <section class="field-group">
+        <h3>Creativity</h3>
+        <div class="segmented" data-name="creativity"></div>
+        <p class="hint" id="creativity-hint"></p>
+      </section>
+
+      <div class="generate-bar">
+        <button type="submit" class="btn primary big" id="generate">Generate 10 combinations</button>
+      </div>
+    </form>
+
+    <section class="results" aria-live="polite">
+      <div id="results-head"></div>
+      <div id="lists" class="lists">
+        <div class="empty">
+          <div class="empty-art" aria-hidden="true">🍋 🌶️ 🧄 🥬</div>
+          <h2>Set your brief, then generate.</h2>
+          <p>You'll get ten ingredient combinations. Each one covers the full sensory panel (sweet, acidic, salty, bitter, umami, fatty, spicy, aromatic, soft, crunchy and chewy) and comes with a suggested cooking method. Lock the ingredients you love, swap the ones you don't, or tap <strong>Generate dish</strong> for a plated concept.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <main id="view-saved" class="saved-view" hidden>
+    <div class="saved-head"><h2>Saved combinations</h2></div>
+    <div id="saved-lists" class="lists"></div>
+  </main>
+
+  <dialog id="dish-dialog" class="dish-dialog">
+    <div id="dish-body"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <footer class="foot">
+    <p>Combinations are creative prompts, not recipes. Allergen and dietary tags are a guide only: always verify the actual products you use, and their certifications.</p>
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
